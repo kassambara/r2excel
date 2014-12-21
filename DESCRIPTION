@@ -1,0 +1,17 @@
+Package: r2excel
+Type: Package
+Title: Read, write and format Excel files in R
+Version: 1.0.0
+Date: 2014-12-20
+Author: Who wrote it
+Author: Alboukadel Kassambara <alboukadel.kassambara@gmail.com>
+Maintainer: Alboukadel kassambara <alboukadel.kassambara@gmail.com>
+Description: Provide easy to use functions to read, write and format excel file formats (Excel 2007 and Excel 97/2000/XP/2003)
+License: GPL-3
+Depends: xlsx
+Imports: xlsx
+VignetteBuilder: knitr
+URL: htt://www.sthda.com 
+BugReports:https://github.com/kassambara/r2excel/issues
+
+
