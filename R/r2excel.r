@@ -1,30 +1,4 @@
-#+++++++++++++++++++++++++++++++++++++++++
-#Author : Alboukadel KASSAMBARA
-#Date :2013-07-27
-#e-mail : alboukadel.kassambara@gmail.com
-#Web site : http://www.sthda.com
-#+++++++++++++++++++++++++++++++++++++++++
 
-#R2XLSX: An easy way to Read, Write and Format Excel in R using xlsx package
-#settings are at the end of the file
-
-#Version : R2XLSX_1.0
-#*********************************************
-#Changes : addTable, addParagraph, addText
-
-
-#****************************************
-#Add header : sheet title and subtitle
-#****************************************
-#wb :workbook object
-#sheet : sheet object
-#value : your header value
-#level : header level; possible value (1 to 6)
-#startRow : row index to start to write
-#startCol : col index to start to write
-#rowBreak : number of rows to jump before appending the data
-#underline : a numeric value specifying the thickness of the underline.
-#Allowed values are 0, 1, 2.
 xlsx.addHeader<-function(wb, sheet, value="Header", level=1, color="#FFFFFF",
                          startRow=NULL, startCol=2, underline=c(0,1,2))
 {
@@ -57,22 +31,6 @@ xlsx.addHeader<-function(wb, sheet, value="Header", level=1, color="#FFFFFF",
   else if(level==6) xlsx::setCellStyle(sheetTitle[[1,1]], H6_STYLE)  
 }
 
-
-#****************************************
-#Add paragraph
-#****************************************
-#wb :workbook object
-#sheet : sheet object
-#value : paragraph text
-#fontColor: text color. default is black. value : all colors returned by colors() can be used
-#fontSize : text size
-#backGroundColor : fill color of the cell
-#isBold : if TRUE, the text is written in bold format
-#isItalic : if TRUE, the text is written in italic format
-#startRow : row index to start to write
-#startCol : col index to start to write
-#colSpan : number of column to be merged (paragraph : width)
-#rowSapn : number of rows to be merged corresponding to paragrath height
 xlsx.addParagraph<-function(wb,sheet, value, fontColor="#FFFFFF", fontSize=12, backGroundColor="#FFFFFF",
                             isBold=FALSE, isItalic=FALSE,
                             startRow=NULL, startCol=2, colSpan=10, rowSpan=5)
@@ -101,18 +59,6 @@ xlsx.addParagraph<-function(wb,sheet, value, fontColor="#FFFFFF", fontSize=12, b
   xlsx.addLineBreak(sheet, rowSpan) 
 }
 
-#****************************************
-#Add Hyperlink
-#****************************************
-#wb :workbook object
-#sheet : sheet object
-#value : paragraph text
-#fontColor: text color. default is black. value : all colors returned by colors() can be used
-#fontSize : text size
-#isBold : if TRUE, the text is written in bold format
-#isItalic : if TRUE, the text is written in italic format
-#startRow : row index to start to write
-#startCol : col index to start to write
 xlsx.addHyperlink<-function(wb,sheet, address, friendlyName, 
                             fontColor="blue", fontSize=12,
                             isBold=FALSE, isItalic=FALSE, startRow=NULL, startCol=2)                      
@@ -135,12 +81,6 @@ xlsx.addHyperlink<-function(wb,sheet, address, friendlyName,
   xlsx::setCellStyle(linkCell[[1,1]], HYPERLINK_STYLE)
 }
 
-
-#****************************************
-#Add Line break to the sheet
-#****************************************
-#sheet : sheet object
-#numberOfLine : number of rows to jump before appending the data
 xlsx.addLineBreak<-function(sheet, numberOfLine=1)
 {
   library("xlsx")
@@ -158,23 +98,6 @@ xlsx.addLineBreak<-function(sheet, numberOfLine=1)
 }
 
 
-#****************************************
-#add table 
-#****************************************
-#wb :workbook object
-#sheet : sheet object
-#data : data frame
-#level : header level; possible value (1 to 6)
-#startRow : row index to start to write
-#startCol : col index to start to write
-#rowBreak : nimber of rows to jum before appending the data
-#if col.names and row.names : column and row names  are written
-#fontColor : color of text
-#fontSize : text size
-#rownamesFill: background color of table row names
-#colnamesFill : background color of table column names
-#rowFill : background color of odd (1,3,5) and even rows (i.e : 2, 4, 6). For table styling.
-#Be carrefull : using mergedColumnForRownames is a  very slow process
 xlsx.addTable<-function(wb, sheet, data, startRow=NULL,startCol=2,
                         col.names=TRUE, row.names=TRUE, columnWidth=14,
                         fontColor="#FFFFFF", fontSize=12, 
@@ -261,16 +184,6 @@ xlsx.addTable<-function(wb, sheet, data, startRow=NULL,startCol=2,
 }
 
 
-
-
-#****************************************
-#add Plot 
-#****************************************
-#wb :workbook object
-#sheet : sheet object
-#startRow : row index to start to write
-#startCol : col index to start to write
-#plotFunction: plot function
 xlsx.addPlot<-function( wb, sheet, plotFunction, startRow=NULL,startCol=2,
                width=480, height=480,... )
              
@@ -290,33 +203,12 @@ xlsx.addPlot<-function( wb, sheet, plotFunction, startRow=NULL,startCol=2,
   res<-file.remove("plot.png")
 }
 
-#****************************************
-#Write a data.frame to an Excel workbook
-#****************************************
-#data : data frame
-#file : output file name
-#if col.names and row.names : column and row names  are written
-#append :if TRUE data should be appended to an existing file. 
-#usage : res <- xlsx.writeFile(USArrests, file="USArrests.xlsx", sheetName="USArrests")
 xlsx.writeFile<-function(data, file, sheetName="Sheet1",
                col.names=TRUE, row.names=TRUE, append=FALSE, ...){
   write.xlsx2(data, file=file, sheetName=sheetName,
               col.names=col.names, row.names=row.names, append=append, ...)
 }
 
-#****************************************
-#Read a data.frame from an Excel workbook
-#****************************************
-#file :the path to the file to read
-#sheetIndex: a number representing the sheet index in the workbook.
-#startRow : index of starting row
-#colIndex: a numeric vector indicating the cols you want to extract. If NULL, all columns found will be extracted
-#endRow: The index of the last row to pull. If NULL, read all the rows in the sheet.
-#header : if TRUE, the first row is considered as row names
-#usage : 
-#file <- system.file("tests", "test_import.xlsx", package = "xlsx")
-#res <- xlsx.readFile(file, 1)  # read first sheet
-#head(res)
 xlsx.readFile<-function(file, sheetIndex=1, startRow=1, colIndex=NULL, endRow=NULL, header=TRUE,...){
   library("xlsx")
   res<-read.xlsx2(file=file, sheetIndex=sheetIndex, startRow=1, colIndex=colIndex, 
@@ -324,9 +216,6 @@ xlsx.readFile<-function(file, sheetIndex=1, startRow=1, colIndex=NULL, endRow=NU
    res          
 }
 
-
-# Return operating systeme name
-#+++++++++++++++++++++++++++++++++++++++++++
 getOS<-function(){ 
   OS=.Platform$OS.type
   if(OS=="unix"){
@@ -335,9 +224,6 @@ getOS<-function(){
   }
 }
 
-#++++++++++++++++++++++++++++
-#Open file
-#++++++++++++++++++++++++++++
 xlsx.openFile<-function(filename=NULL)
 {  
   absolute.path=paste(getwd(), "/", filename, sep="")
@@ -351,5 +237,4 @@ xlsx.openFile<-function(filename=NULL)
 
 #Settings
 #+++++++++++++++++++++++++++++++++
-#load packages
 if(getOS()=="mac") Sys.setenv(NOAWT=1) #prevents usage of awt - required on Mac
