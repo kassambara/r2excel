@@ -56,7 +56,7 @@ plotFunction<-function(){boxplot(len ~ dose, data = ToothGrowth, col = 1:3)}
 xlsx.addPlot(wb, sheet, plotFunction())
 
 # ggplot2
-require(ggplot2)
+library("ggplot2")
 xlsx.addHeader(wb, sheet, "ggplot2")
 xlsx.addLineBreak(sheet, 1)
 plotFunction<-function(){

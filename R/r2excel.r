@@ -101,7 +101,8 @@ xlsx.addLineBreak<-function(sheet, numberOfLine=1)
 xlsx.addTable<-function(wb, sheet, data, startRow=NULL,startCol=2,
                         col.names=TRUE, row.names=TRUE, columnWidth=14,
                         fontColor="#FFFFFF", fontSize=12, 
-                        rownamesFill="white", colnamesFill="white", rowFill=c("white", "white")){
+                        rownamesFill="white", colnamesFill="white", 
+                        rowFill=c("white", "white")){
   
   library("xlsx")
   #++++++++++++++++++++++++++++++++++++++
@@ -209,12 +210,15 @@ xlsx.writeFile<-function(data, file, sheetName="Sheet1",
               col.names=col.names, row.names=row.names, append=append, ...)
 }
 
-xlsx.readFile<-function(file, sheetIndex=1, startRow=1, colIndex=NULL, endRow=NULL, header=TRUE,...){
+xlsx.readFile<-function(file, sheetIndex=1, startRow=1, 
+                colIndex=NULL, endRow=NULL, header=TRUE,...)
+  {
   library("xlsx")
   res<-read.xlsx2(file=file, sheetIndex=sheetIndex, startRow=1, colIndex=colIndex, 
              endRow=endRow,header=header, ...)
    res          
 }
+
 
 getOS<-function(){ 
   OS=.Platform$OS.type

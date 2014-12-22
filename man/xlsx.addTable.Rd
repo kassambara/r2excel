@@ -12,7 +12,7 @@ xlsx.addTable(wb, sheet, data, startRow = NULL, startCol = 2,
               col.names = TRUE, row.names = TRUE, columnWidth = 14,
               fontColor = "#FFFFFF", fontSize = 12,
               rownamesFill = "white", colnamesFill = "white",
-              rowFill = "white")
+              rowFill=c("white", "white"))
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

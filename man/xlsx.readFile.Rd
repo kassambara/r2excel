@@ -17,7 +17,6 @@ xlsx.readFile(file, sheetIndex = 1, startRow = 1, colIndex = NULL, endRow = NULL
    \item{startRow}{a numeric value specifying the starting row}
   \item{colIndex}{a numeric vector indicating the cols you want to extract. If NULL, all columns found will be extracted.}
   \item{endRow}{a number specifying the index of the last row to pull. If NULL, read all the rows in the sheet.}
-}
   \item{header}{a logical value indicating whether the first row corresponding to the first element of the rowIndex vector contains the names of the variables.}
   \item{\dots}{other arguments to read.xlsx2 function}
 }
