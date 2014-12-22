@@ -25,7 +25,7 @@ xlsx.addParagraph(wb, sheet, value, fontColor = "#FFFFFF", fontSize = 12,
   \item{startRow}{a numeric value specifying the starting row}
   \item{startCol}{a numeric value specifying the starting column}
   \item{colSpan}{number of columns to be merged (paragraph : width)}
-  \item{rowSpan}{number of rows to be merged (paragrath height)}
+  \item{rowSpan}{number of rows to be merged (paragraph height)}
 }
 \details{
 %%  ~~ If necessary, more details than the description above ~~
