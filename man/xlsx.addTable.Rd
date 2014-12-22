@@ -24,7 +24,7 @@ xlsx.addTable(wb, sheet, data, startRow = NULL, startCol = 2,
   \item{col.names}{a logical value indicating whether the column names of the data are to be written to the file. Default is TRUE}
   \item{row.names}{a logical value indicating whether the row names of the data are to be written to the file. Default is TRUE}
   \item{columnWidth}{a numeric value specifyingthe width of the column.}
-  \item{fontColor}{the solor of the text}
+  \item{fontColor}{the color of the text}
   \item{fontSize}{the size of the text}
   \item{rownamesFill}{the color for filling the cells containing row names}
   \item{colnamesFill}{the color for filling the cells containing row names}
