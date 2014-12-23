@@ -31,5 +31,5 @@ Alboukadel Kassambara <alboukadel.kassambara@gmail.com>
 }
 \examples{
 xlsx.writeMultipleData("multiple-objects-workbooks.xlsx"", mtcars, Titanic, AirPassengers, state.x77)
-xlsx.openFile("multiple-objects-workbooks.xlsx)
+xlsx.openFile("multiple-objects-workbooks.xlsx")
 }
