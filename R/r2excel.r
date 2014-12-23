@@ -210,6 +210,21 @@ xlsx.writeFile<-function(data, file, sheetName="Sheet1",
               col.names=col.names, row.names=row.names, append=append, ...)
 }
 
+xlsx.writeMultipleData <- function (file, ...)
+{
+  require(xlsx, quietly = TRUE)
+  objects <- list(...)
+  fargs <- as.list(match.call(expand.dots = TRUE))
+  objnames <- as.character(fargs)[-c(1, 2)]
+  nobjects <- length(objects)
+  for (i in 1:nobjects) {
+    if (i == 1)
+      write.xlsx(objects[[i]], file, sheetName = objnames[i])
+    else write.xlsx(objects[[i]], file, sheetName = objnames[i],
+                    append = TRUE)
+  }
+}
+
 xlsx.readFile<-function(file, sheetIndex=1, startRow=1, 
                 colIndex=NULL, endRow=NULL, header=TRUE,...)
   {
