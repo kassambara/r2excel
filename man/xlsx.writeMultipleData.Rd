@@ -30,6 +30,6 @@ Alboukadel Kassambara <alboukadel.kassambara@gmail.com>
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-xlsx.writeMultipleData("multiple-objects-workbooks.xlsx"", mtcars, Titanic, AirPassengers, state.x77)
+xlsx.writeMultipleData("multiple-objects-workbooks.xlsx", mtcars, Titanic, AirPassengers, state.x77)
 xlsx.openFile("multiple-objects-workbooks.xlsx")
 }
