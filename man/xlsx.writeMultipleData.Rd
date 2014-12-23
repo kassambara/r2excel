@@ -2,9 +2,7 @@
 \alias{xlsx.writeMultipleData}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{Export multiple data to the same Excel workbook}
-\description{
-Export multiple data to the same Excel workbook. The different objects (data) are written in different worksheets from the same Excel workbook. The object names are used for naming the different sheets. It works for data frames, matrices, time series, and tables.
-}
+\description{Export multiple data to the same Excel workbook. The different objects (data) are written in different worksheets from the same Excel workbook. The object names are used for naming the different sheets. It works for data frames, matrices, time series, and tables.}
 \usage{
 xlsx.writeMultipleData(file, ...)
 }
@@ -32,6 +30,6 @@ Alboukadel Kassambara <alboukadel.kassambara@gmail.com>
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-xlsx.writeMultipleData("multiple-objects-workbooks.xlsx", mtcars, Titanic, AirPassengers, state.x77)
+xlsx.writeMultipleData("multiple-objects-workbooks.xlsx"", mtcars, Titanic, AirPassengers, state.x77)
 xlsx.openFile("multiple-objects-workbooks.xlsx)
 }
