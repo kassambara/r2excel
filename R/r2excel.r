@@ -256,4 +256,4 @@ xlsx.openFile<-function(filename=NULL)
 
 #Settings
 #+++++++++++++++++++++++++++++++++
-if(getOS()=="mac") Sys.setenv(NOAWT=1) #prevents usage of awt - required on Mac
+#if(getOS()=="mac") Sys.setenv(NOAWT=1) #prevents usage of awt - required on Mac
