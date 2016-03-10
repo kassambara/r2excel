@@ -229,7 +229,7 @@ xlsx.readFile<-function(file, sheetIndex=1, startRow=1,
                 colIndex=NULL, endRow=NULL, header=TRUE,...)
   {
   library("xlsx")
-  res<-read.xlsx2(file=file, sheetIndex=sheetIndex, startRow=1, colIndex=colIndex, 
+  res<-read.xlsx2(file=file, sheetIndex=sheetIndex, startRow=startRow, colIndex=colIndex, 
              endRow=endRow,header=header, ...)
    res          
 }
