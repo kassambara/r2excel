@@ -1,4 +1,3 @@
-
 xlsx.addHeader<-function(wb, sheet, value="Header", level=1, color="#FFFFFF",
                          startRow=NULL, startCol=2, underline=c(0,1,2))
 {
@@ -41,9 +40,9 @@ xlsx.addParagraph<-function(wb,sheet, value, fontColor="#FFFFFF", fontSize=12, b
     rows<- getRows(sheet) #list of row object
     startRow=length(rows)+1
   }
-    rows <- createRow(sheet,rowIndex=startRow)
-   sheetParagraph <- createCell(rows, colIndex=startCol)
-    setCellValue(sheetParagraph[[1,1]], value)
+  rows <- createRow(sheet,rowIndex=startRow)
+  sheetParagraph <- createCell(rows, colIndex=startCol)
+  setCellValue(sheetParagraph[[1,1]], value)
   #style
   PARAGRAPH_STYLE <- CellStyle(wb)+ 
     Font(wb,  heightInPoints=fontSize,color=fontColor, isBold=isBold, isItalic=isItalic)+                          
@@ -62,7 +61,7 @@ xlsx.addParagraph<-function(wb,sheet, value, fontColor="#FFFFFF", fontSize=12, b
 xlsx.addHyperlink<-function(wb,sheet, address, friendlyName, 
                             fontColor="blue", fontSize=12,
                             isBold=FALSE, isItalic=FALSE, startRow=NULL, startCol=2)                      
-                       
+  
 {
   library("xlsx") 
   #Append table to sheet
@@ -88,12 +87,12 @@ xlsx.addLineBreak<-function(sheet, numberOfLine=1)
   nrows<-length(getRows(sheet)) #list of row object
   startRow=nrows
   for(i in 1:numberOfLine){
-  #Append row to sheet
-  startRow=startRow+1
-  # Create the Sheet title and subtitle
-  rows <- createRow(sheet,rowIndex=startRow)
-  sheetLineBreak <- createCell(rows, colIndex=1)
-  setCellValue(sheetLineBreak[[1,1]], "  ") 
+    #Append row to sheet
+    startRow=startRow+1
+    # Create the Sheet title and subtitle
+    rows <- createRow(sheet,rowIndex=startRow)
+    sheetLineBreak <- createCell(rows, colIndex=1)
+    setCellValue(sheetLineBreak[[1,1]], "  ") 
   }
 }
 
@@ -102,7 +101,7 @@ xlsx.addTable<-function(wb, sheet, data, startRow=NULL,startCol=2,
                         col.names=TRUE, row.names=TRUE, columnWidth=14,
                         fontColor="#FFFFFF", fontSize=12, 
                         rownamesFill="white", colnamesFill="white", 
-                        rowFill=c("white", "white")){
+                        rowFill="white"){
   
   library("xlsx")
   #++++++++++++++++++++++++++++++++++++++
@@ -118,14 +117,14 @@ xlsx.addTable<-function(wb, sheet, data, startRow=NULL,startCol=2,
   #VALIGN_STYLES_: "VERTICAL_BOTTOM, VERTICAL_CENTER, VERTICAL_JUSTIFY, VERTICAL_TOP"
   #Alignement :
   TABLE_ROWNAMES_STYLE <- CellStyle(wb) + Font(wb, isBold=TRUE, color=fontColor, 
-                                            heightInPoints=fontSize)
+                                               heightInPoints=fontSize)
   #rownames fill 
   if(rownamesFill!="white") {
     TABLE_ROWNAMES_STYLE <-TABLE_ROWNAMES_STYLE+
-                        Fill(foregroundColor = rownamesFill, 
-                             backgroundColor=rownamesFill)
+      Fill(foregroundColor = rownamesFill, 
+           backgroundColor=rownamesFill)
   }
-                
+  
   
   TABLE_COLNAMES_STYLE <- CellStyle(wb) + 
     Font(wb, isBold=TRUE, color=fontColor, heightInPoints=fontSize) +
@@ -135,10 +134,10 @@ xlsx.addTable<-function(wb, sheet, data, startRow=NULL,startCol=2,
   #colnames fill
   if(colnamesFill!="white") {
     TABLE_COLNAMES_STYLE <-TABLE_COLNAMES_STYLE+
-                          Fill(foregroundColor = colnamesFill,
-                               backgroundColor=colnamesFill)
+      Fill(foregroundColor = colnamesFill,
+           backgroundColor=colnamesFill)
   }
-            
+  
   #Append table to sheet
   #get current active row of sheet
   if(is.null(startRow)){
@@ -162,32 +161,36 @@ xlsx.addTable<-function(wb, sheet, data, startRow=NULL,startCol=2,
   #Column width
   #+++++++++++++++++++++++++++++++++++++++
   colIndex=1:(ncol(data)+startCol)
-  xlsx::setColumnWidth(sheet, colIndex=colIndex, colWidth=columnWidth)
+  if (length(columnWidth)>1)
+  {for (i in 1:(ncol(data)+startCol))
+    {xlsx::setColumnWidth(sheet, colIndex=colIndex[i], colWidth=columnWidth[i])
+  }
+  }else{
+    xlsx::setColumnWidth(sheet, colIndex=colIndex, colWidth=columnWidth)
+  }
   
   #Table styling
   #+++++++++++++++++++++++++++++++++++++++
-  if(!all(rowFill==c("white", "white"))){
-      col.n =ncol(data)
-      row.n=nrow(data)
-      if(col.names==TRUE) col.n<-col.n+1
-      if(row.names==TRUE) row.n<-row.n+1
-      cb<-CellBlock(sheet, startRow=startRow, startColumn=startCol, 
-                    noRows=row.n, noColumns=col.n, create=FALSE )
-      #color pair row for styling
-      for(i in 1: nrow(data)){ 
-        if(i%%2==0) CB.setFill( cb, fill=Fill(foregroundColor = rowFill[2], backgroundColor=rowFill[2]),
-                    rowIndex=i, colIndex=1:col.n)
-        else CB.setFill( cb, fill=Fill(foregroundColor = rowFill[1], backgroundColor=rowFill[1]),
-                         rowIndex=i, colIndex=1:col.n)
+  if(!all(rowFill %in% "white")){
+    col.n =ncol(data)
+    row.n=nrow(data)
+    if(col.names==TRUE) col.n<-col.n+1
+    if(row.names==TRUE) row.n<-row.n+1
+    cb<-CellBlock(sheet, startRow=startRow, startColumn=startCol, 
+                  noRows=row.n, noColumns=col.n, create=FALSE )
+    #color pair row for styling
+    for(i in 1: nrow(data)){ 
+      CB.setFill( cb, fill=Fill(foregroundColor = rowFill[i], backgroundColor=rowFill[i]),
+                  rowIndex=i, colIndex=1:col.n)
     }
-   
+    
   }
 }
 
 
 xlsx.addPlot<-function( wb, sheet, plotFunction, startRow=NULL,startCol=2,
-               width=480, height=480,... )
-             
+                        width=480, height=480,... )
+  
 {
   library("xlsx")
   png(filename = "plot.png", width = width, height = height,...)
@@ -205,7 +208,7 @@ xlsx.addPlot<-function( wb, sheet, plotFunction, startRow=NULL,startCol=2,
 }
 
 xlsx.writeFile<-function(data, file, sheetName="Sheet1",
-               col.names=TRUE, row.names=TRUE, append=FALSE, ...){
+                         col.names=TRUE, row.names=TRUE, append=FALSE, ...){
   write.xlsx2(data, file=file, sheetName=sheetName,
               col.names=col.names, row.names=row.names, append=append, ...)
 }
@@ -226,12 +229,12 @@ xlsx.writeMultipleData <- function (file, ...)
 }
 
 xlsx.readFile<-function(file, sheetIndex=1, startRow=1, 
-                colIndex=NULL, endRow=NULL, header=TRUE,...)
-  {
+                        colIndex=NULL, endRow=NULL, header=TRUE,...)
+{
   library("xlsx")
   res<-read.xlsx2(file=file, sheetIndex=sheetIndex, startRow=1, colIndex=colIndex, 
-             endRow=endRow,header=header, ...)
-   res          
+                  endRow=endRow,header=header, ...)
+  res          
 }
 
 
